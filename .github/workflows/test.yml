@@ -1,0 +1,23 @@
+name: Test capture workflow
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: competitor-screenshots
+          environment-file: environment.yml
+          auto-activate-base: false
+      - run: python capture.py --install-browser
+      - run: python capture.py --check-env
+      - run: python -m unittest discover -s tests -v

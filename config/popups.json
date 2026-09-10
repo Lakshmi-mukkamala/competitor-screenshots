@@ -1,0 +1,9 @@
+{
+  "global": {
+    "rejectSelectors": ["#onetrust-reject-all-handler", "#CybotCookiebotDialogBodyButtonDecline"],
+    "acceptSelectors": ["#onetrust-accept-btn-handler", "#CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"],
+    "closeSelectors": ["button[aria-label='Close dialog']", "button[aria-label='Close modal']", "button[aria-label='Close popup']", "button[aria-label='Close']", "button[aria-label='Sluiten']"],
+    "blockerSelectors": []
+  },
+  "sites": {}
+}

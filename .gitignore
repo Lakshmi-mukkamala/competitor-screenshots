@@ -1,0 +1,14 @@
+node_modules/
+.pnpm-store/
+.conda-env/
+.conda-pkgs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+screenshots/*
+!screenshots/.gitkeep
+test-results/
+.env
+*.log
+.DS_Store
+Thumbs.db
