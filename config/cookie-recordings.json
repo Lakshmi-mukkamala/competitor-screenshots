@@ -1,0 +1,52 @@
+{
+  "files": {
+    "1800flowers.com": "1800_Flowers_Homepage_1800flowers_com.json",
+    "amarantelondon.com": "Amarante_London_Homepage_amarantelondon_com.json",
+    "appleyardflowers.com": "Appleyard_Flowers_Homepage_appleyardflowers_com.json",
+    "arenaflowers.com": "Arena_Flowers_Homepage_arenaflowers_com.json",
+    "beardsanddaisies.co.uk": "Beards_and_Daisies_Homepage_beardsanddaisies_co_uk.json",
+    "bloomandwild.com": "Bloom_and_Wild_Homepage_bloomandwild_com.json",
+    "bloomboxclub.com": "Bloombox_Club_Homepage_bloomboxclub_com.json",
+    "bloomon.nl": "Bloomon_NL_Homepage_bloomon_nl.json",
+    "bloomon.co.uk": "Bloomon_UK_Homepage_bloomon_co_uk.json",
+    "bouqs.com": "Bouqs_Homepage_bouqs_com.json",
+    "bunches.co.uk": "Bunches_Homepage_bunches_co_uk.json",
+    "bybloom.co.uk": "By_Bloom_Homepage_bybloom_co_uk.json",
+    "euroflorist.nl": "Euroflorist_Homepage_euroflorist_nl.json",
+    "fleurop.nl": "Fleurop_Homepage_fleurop_nl.json",
+    "floom.com": "Floom_Homepage_floom_com.json",
+    "flowerstation.co.uk": "Flower_Station_Homepage_flowerstation_co_uk.json",
+    "flowerbx.com": "FlowerBX_Homepage_flowerbx_com.json",
+    "flowers.nl": "Flowers_nl_Homepage_flowers_nl.json",
+    "flyingflowers.co.uk": "Flying_Flowers_Homepage_flyingflowers_co_uk.json",
+    "freddiesflowers.com": "Freddies_Flowers_Homepage_freddiesflowers_com.json",
+    "funkypigeon.com": "Funky_Pigeon_Homepage_funkypigeon_com.json",
+    "greetz.nl": {
+      "flowers-and-plants": "Greetz_Flowers_Homepage_greetz_nl.json",
+      "homepage": "Greetz_Home_Homepage_greetz_nl.json"
+    },
+    "happyhouseplants.co.uk": "Happy_Houseplants_Homepage_happyhouseplants_co_uk.json",
+    "hauteflorist.co.uk": "Haute_Florist_Homepage_hauteflorist_co_uk.json",
+    "houseplant.co.uk": "Houseplant_Homepage_houseplant_co_uk.json",
+    "interflora.co.uk": "Interflora_Homepage_interflora_co_uk.json",
+    "jparkers.co.uk": "J_Parkers_Homepage_jparkers_co_uk.json",
+    "leafenvy.co.uk": "Leaf_Envy_Homepage_leafenvy_co_uk.json",
+    "marksandspencer.com": "M_S_Flowers_Homepage_marksandspencer_com.json",
+    "moonpig.com": {
+      "flowers-and-plants": "Moonpig_Flowers_Homepage_moonpig_com.json",
+      "homepage": "Moonpig_Home_Homepage_moonpig_com.json"
+    },
+    "moysesflowers.co.uk": "Moyses_Stevens_Homepage_moysesflowers_co_uk.json",
+    "flowers.next.co.uk": "Next_Flowers_Homepage_flowers_next_co_uk.json",
+    "oxy-plants.com": "Oxyplants_Homepage_oxy-plants_com.json",
+    "patchplants.com": "Patch_Plants_Homepage_patchplants_com.json",
+    "plantdrop.co.uk": "Plant_Drop_Homepage_plantdrop_co_uk.json",
+    "prestigeflowers.co.uk": "Prestige_Flowers_Homepage_prestigeflowers_co_uk.json",
+    "primrose.co.uk": "Primrose_Homepage_primrose_co_uk.json",
+    "sarahraven.com": "Sarah_Raven_Homepage_sarahraven_com.json",
+    "serenataflowers.com": "Serenata_Flowers_Homepage_serenataflowers_com.json",
+    "teleflora.com": "Telefora_Homepage_teleflora_com.json",
+    "urbanstems.com": "Urban_Stems_Homepage_urbanstems_com.json",
+    "waitrosegarden.com": "Waitrose_Garden_Homepage_waitrosegarden_com.json"
+  }
+}

@@ -4,6 +4,7 @@ import re
 
 from .config import slug
 from .popups import dismiss_popups, find_blockers, site_rules
+from .recordings import load_recording, replay_clicks
 
 
 def now():
@@ -45,8 +46,12 @@ def capture_target(browser, target, settings, config, run_dir, manual=False):
     page.set_default_timeout(5000)
     page.on('dialog', lambda dialog: dialog.dismiss())
     rules = site_rules(config, target['id'])
+    recorded_rules, recorded_clicks = load_recording(target, settings, record['warnings'])
+    for key, selectors in recorded_rules.items():
+        rules[key] = selectors + rules.get(key, [])
 
     def dismiss():
+        replay_clicks(page, recorded_clicks, record['actions'])
         dismiss_popups(page, rules, settings['consent'], record['actions'])
 
     def diagnostic():

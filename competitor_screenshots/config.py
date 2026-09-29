@@ -60,6 +60,7 @@ def load_settings(output=None, consent=None, env_file=None):
     if choice not in ('accept', 'reject'):
         raise ValueError('COOKIE_CONSENT must be accept or reject.')
     return {
+        'cookie_recordings_dir': values.get('COOKIE_RECORDINGS_DIR', 'G:/Shared drives/Arena Competitor Comparison/Running Process/Cookies'),
         'output': str(output_path.resolve()), 'consent': choice,
         'viewport': {'width': integer('VIEWPORT_WIDTH', 1440, 320, 3840), 'height': integer('VIEWPORT_HEIGHT', 1000, 320, 2160)},
         'settle': integer('SETTLE_MS', 2000, 0, 30000),

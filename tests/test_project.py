@@ -159,6 +159,24 @@ class BrowserTests(unittest.TestCase):
         finally:
             page.close()
 
+    def test_recorded_cookie_sequence_in_browser(self):
+        from competitor_screenshots.recordings import parse_recording, replay_clicks
+        page = self.browser.new_page()
+        try:
+            page.set_content('''<button id="settings" onclick="document.querySelector('#consent').hidden=false;this.remove()">Preferences</button>
+                <button id="consent" hidden onclick="this.remove()">Confirm cookies</button>''')
+            _, clicks = parse_recording({'steps': [
+                {'type': 'click', 'selectors': [['#settings'], ['button']]},
+                {'type': 'click', 'selectors': [['#consent']]},
+            ]}, 'accept')
+            actions = []
+            replay_clicks(page, clicks, actions)
+            self.assertEqual(page.locator('button').count(), 0)
+            self.assertEqual(len(actions), 2)
+            self.assertEqual(clicks, [])
+        finally:
+            page.close()
+
     def test_nonsemantic_overlay_and_scroll_limit(self):
         from competitor_screenshots.popups import find_blockers
         from competitor_screenshots.capture import scroll_page

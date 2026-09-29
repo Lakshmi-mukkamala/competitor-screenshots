@@ -1,5 +1,7 @@
 # Competitor screenshots — Python Playwright
 
+Cookie recording integration and the automation launcher are documented in [automation/README.md](automation/README.md). All 44 supplied cookie filenames are mapped in `config/cookie-recordings.json`; files are loaded from the configured shared-drive path at capture time.
+
 Capture full-page competitor websites after accepting cookie prompts, dismissing recognised popups, and scrolling to load content. All runtime packages are defined in [environment.yml](environment.yml) and installed in a dedicated Conda environment.
 
 | Category | Competitors | Pages |
