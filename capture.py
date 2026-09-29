@@ -1,6 +1,7 @@
 """Command-line entry point. Activate the project Conda environment first."""
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -48,7 +49,8 @@ def main():
     config = json.loads((ROOT / 'config/popups.json').read_text(encoding='utf-8'))
     from competitor_screenshots.capture import capture_target, now
     from competitor_screenshots.report import write_report, prepare_daily_report, replace_result
-    run_dir = Path(settings['output']) / datetime.now().date().isoformat()
+    output_dir = Path(settings['output'])
+    run_dir = output_dir / 'reports' / datetime.now().date().isoformat()
     run_dir.mkdir(parents=True, exist_ok=True)
     report = prepare_daily_report(run_dir, targets, now())
     current_results = []
@@ -58,7 +60,11 @@ def main():
             write_report(run_dir, report)
             for index, target in enumerate(targets, 1):
                 print(f'[{index}/{len(targets)}] {target["category"]} / {target["name"]} / {target["page"]}', flush=True)
-                result = capture_target(browser, target, settings, config, run_dir, args.manual)
+                result = capture_target(browser, target, settings, config, output_dir, args.manual)
+                # Report image links are relative to the daily report directory.
+                for key in ('screenshot', 'diagnostic'):
+                    if key in result:
+                        result[key] = Path(os.path.relpath(output_dir / result[key], run_dir)).as_posix()
                 result.update(browser=browser.version, settings=settings)
                 current_results.append(result)
                 replace_result(report, result)

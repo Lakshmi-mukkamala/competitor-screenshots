@@ -13,6 +13,24 @@ from competitor_screenshots.environment import configure_environment
 
 
 class ConfigurationTests(unittest.TestCase):
+    def test_daily_report_links_to_competitor_folder(self):
+        from competitor_screenshots.report import prepare_daily_report, replace_result, write_report
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            daily = root / 'reports/2026-09-29'
+            daily.mkdir(parents=True)
+            image = root / 'interflora/interflora_2026-09-29_12-00-00-000001_homepage.png'
+            image.parent.mkdir()
+            image.write_bytes(b'image')
+            relative = Path(os.path.relpath(image, daily)).as_posix()
+            result = dict(id='interflora', competitor='Interflora', category='Flowers',
+                          page='homepage', status='captured', screenshot=relative, warnings=[])
+            report = prepare_daily_report(daily, [result], 'start')
+            replace_result(report, result)
+            write_report(daily, report)
+            self.assertIn(f'[Open]({relative})', (daily / 'README.md').read_text(encoding='utf-8'))
+            self.assertEqual((daily / relative).resolve(), image.resolve())
+
     def test_same_day_report_keeps_other_pages_and_replaces_retries(self):
         from competitor_screenshots.report import prepare_daily_report, replace_result
         with tempfile.TemporaryDirectory() as folder:
@@ -125,17 +143,20 @@ class BrowserTests(unittest.TestCase):
             width, height = struct.unpack('>II', png[16:24])
             self.assertEqual(width, 800)
             self.assertGreaterEqual(height, 3200)
+            self.assertEqual(Path(result['screenshot']).parent, Path('fixture'))
+            self.assertRegex(Path(result['screenshot']).name, r'^fixture_\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2}-\d{6}_homepage\.png$')
 
     def test_unclosed_popup_never_saved_as_clean(self):
         with tempfile.TemporaryDirectory() as folder:
-            stale = Path(folder) / 'flowers/fixture/homepage.png'
+            stale = Path(folder) / 'fixture/fixture_2026-09-10_12-00-00-000000_homepage.png'
             stale.parent.mkdir(parents=True)
             stale.write_bytes(b'previous capture')
             result = self.capture(folder, '/blocked')
             self.assertEqual(result['status'], 'blocked', result)
             self.assertNotIn('screenshot', result)
             self.assertTrue((Path(folder) / result['diagnostic']).exists())
-            self.assertFalse((Path(folder) / 'flowers/fixture/homepage.png').exists())
+            self.assertEqual(stale.read_bytes(), b'previous capture')
+            self.assertEqual(set(stale.parent.glob('*.png')), {stale, Path(folder) / result['diagnostic']})
 
     def test_http_failure_has_diagnostic(self):
         with tempfile.TemporaryDirectory() as folder:

@@ -32,11 +32,10 @@ def capture_target(browser, target, settings, config, run_dir, manual=False):
     record = dict(competitor=target['name'], id=target['id'], category=target['category'],
                   page=target['page'], requestedUrl=target['url'], capturedAt=now(),
                   status='failed', actions=[], warnings=[])
-    folder = Path(slug(target['category'])) / target['id']
+    folder = Path(slug(target['name']))
+    stamp = datetime.now().astimezone().strftime('%Y-%m-%d_%H-%M-%S-%f')
+    basename = f"{slug(target['name'])}_{stamp}_{target['page']}"
     (run_dir / folder).mkdir(parents=True, exist_ok=True)
-    # A same-day retry replaces this page's previous output, including failures.
-    for suffix in ('.png', '.diagnostic.png'):
-        (run_dir / folder / (target['page'] + suffix)).unlink(missing_ok=True)
     nl = target['category'] == 'Greetz NL'
     context = browser.new_context(viewport=settings['viewport'], device_scale_factor=1,
                                   locale='nl-NL' if nl else 'en-GB',
@@ -56,7 +55,7 @@ def capture_target(browser, target, settings, config, run_dir, manual=False):
 
     def diagnostic():
         try:
-            filename = folder / (target['page'] + '.diagnostic.png')
+            filename = folder / (basename + '.diagnostic.png')
             page.screenshot(path=str(run_dir / filename), full_page=True, timeout=10000)
             record['diagnostic'] = filename.as_posix()
         except Exception:
@@ -112,7 +111,7 @@ def capture_target(browser, target, settings, config, run_dir, manual=False):
             record['warnings'].append('An overlay appeared during capture. Only diagnostic evidence was saved.')
             diagnostic()
         else:
-            filename = folder / (target['page'] + '.png')
+            filename = folder / (basename + '.png')
             (run_dir / filename).write_bytes(image)
             record['screenshot'] = filename.as_posix()
             record['status'] = 'needs-review' if record['warnings'] else 'captured'

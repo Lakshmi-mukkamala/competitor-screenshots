@@ -47,7 +47,7 @@ Edit this line in `.env` to choose any writable destination:
 SCREENSHOT_OUTPUT_DIR="D:/Research/Competitor Screenshots"
 ```
 
-The default is `./screenshots`. Relative paths resolve from the repository folder. Use forward slashes on Windows and quote paths containing spaces. Output uses one folder per local calendar date, such as `2026-09-10`. Same-day runs replace only the selected pages and merge their results into the daily report. Other pages and earlier dates are preserved. Run batches sequentially when using the same output folder.
+The default is `./screenshots`. Relative paths resolve from the repository folder. Use forward slashes on Windows and quote paths containing spaces. Screenshots go directly into a folder for each competitor. Filenames contain the competitor name, local date and time (including microseconds), and page type. Names use lowercase words separated by hyphens for filesystem compatibility. Each attempt gets a new filename, preserving earlier images. Daily reports live under `reports/YYYY-MM-DD/` and show the latest attempt for each page that day. Run batches sequentially when using the same output folder.
 
 | Setting | Default | Purpose |
 | --- | --- | --- |
@@ -104,16 +104,18 @@ Use `--manual` in an interactive terminal: handle the popup in the displayed bro
 
 ## 4. Review the results
 
-Open the dated run folder shown at the end of the command:
+Open the report shown at the end of the command, or browse a competitor folder:
 
 ```text
-<your-output-folder>/2026-09-10/
-  README.md
-  manifest.json
-  flowers/moonpig/homepage.png
-  flowers/moonpig/flowers-and-plants.png
-  plants/patch-plants/homepage.png
-  greetz-nl/kaartje2go/homepage.png
+<your-output-folder>/
+  interflora/
+    interflora_2026-09-29_14-30-05-123456_homepage.png
+  moonpig/
+    moonpig_2026-09-29_14-31-10-123456_homepage.png
+    moonpig_2026-09-29_14-32-15-123456_flowers-and-plants.png
+  reports/2026-09-29/
+    README.md
+    manifest.json
 ```
 
 | Status | Meaning |

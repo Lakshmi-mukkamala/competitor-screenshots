@@ -59,7 +59,7 @@ The runner returns to the top, waits, checks fonts, and performs another popup p
 
 The runner checks for visible semantic dialogs, known consent panels, common popup containers, and large fixed overlays. It scans visible iframe content too.
 
-If a popup or access challenge remains, the result is `blocked`. A `.diagnostic.png` may be saved, but the ordinary `homepage.png` is not created. After rendering a candidate full-page screenshot, the page is checked again before the image is committed as a normal capture.
+If a popup or access challenge remains, the result is `blocked`. A timestamped `.diagnostic.png` may be saved, but no ordinary screenshot is created for that attempt. After rendering a candidate full-page screenshot, the page is checked again before the image is committed as a normal capture.
 
 The checks intentionally favour reporting uncertain overlays for review. They cannot detect every custom implementation or eliminate the possibility of a very late popup. Visually review all final images; use manual mode for unusual sites.
 
@@ -102,7 +102,7 @@ After changing a rule, run the tests, capture the relevant competitor, inspect t
 
 ## 9. Inspect output and retry
 
-Output uses a date-only directory under the configured output root, for example `2026-09-10`, based on the computer's local date when the run starts. Its README groups results by category and links to each image. Its manifest retains detailed timestamps, settings and browser version per page, actions, warnings, and detected blockers.
+Images live directly under a competitor folder in the configured output root, for example `interflora/interflora_2026-09-29_14-30-05-123456_homepage.png`. The timestamp is the attempt's local start date and time, including microseconds to distinguish retries. Competitor names are lowercase with punctuation and spaces converted to hyphens. Page type distinguishes homepages from flower pages. Daily reports live in `reports/YYYY-MM-DD/`, using the computer's local date when the run starts. The README groups results by category and links to each image. Its manifest retains detailed timestamps, settings and browser version per page, actions, warnings, and detected blockers. Image paths in the manifest are relative to its report folder.
 
 | Status | Review action |
 | --- | --- |
@@ -113,7 +113,7 @@ Output uses a date-only directory under the configured output root, for example 
 
 Check the hero, product images, page body, and footer. Look for covered content, blank sections, unexpected redirects, or access challenges. Small floating controls may remain as part of the website.
 
-Same-day retries reuse the date folder, replacing the selected page's image and report entry while keeping other competitors' results. Previous images for a retried page are removed before capturing, so a blocked retry cannot leave a stale clean image behind. Earlier dates remain untouched. Reports update after each completed page and include progress for the latest run. If interrupted, retry the affected pages; unfinished entries can still show an earlier attempt. Run batches sequentially against the same output folder to avoid competing writes.
+Retries preserve earlier images and create new timestamped files. The daily report replaces the selected page's entry with its latest result while keeping other competitors' entries. A blocked retry links only to that attempt's diagnostic, never to a previous clean capture. Reports update after each completed page and include progress for the latest run. If interrupted, retry the affected pages; unfinished entries can still show an earlier attempt. Existing output from the old date/category layout is not moved. Run batches sequentially against the same output folder to avoid competing writes.
 
 Exit codes are 0 for no warnings, 1 for a failure, 2 for blocked/review results without failures, and 130 for interruption.
 
